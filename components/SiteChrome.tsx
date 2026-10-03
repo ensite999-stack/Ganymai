@@ -94,53 +94,33 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
 
     <main>{children}</main>
     <footer className="site-footer">
-      <div className="footer-main">
+      <div className="footer-inner">
         <div className="footer-brand-block">
           <div className="footer-brand"><BrandName /></div>
           <p className="footer-motto">{t.motto}</p>
         </div>
 
-        <nav className="footer-columns" aria-label="Footer">
-          <div className="footer-column">
-            <h2>Read</h2>
-            <Link href="/">Essays</Link>
-            <Link href="/archive">{t.ourArchive}</Link>
-          </div>
-          <div className="footer-column">
-            <h2>Ganymai</h2>
-            <Link href="/about">{t.aboutUs}</Link>
-            <Link href="/contact">{t.contactUs}</Link>
-            <Link href="/donate">Support</Link>
-          </div>
-          <div className="footer-column">
-            <h2>Information</h2>
-            <Link href="/privacy">{t.privacyPolicy}</Link>
-            <Link href="/terms">{t.termsOfUse}</Link>
-            <Link href="/accessibility">{t.accessibilityStatement}</Link>
-            <Link href="/donation-statement">{t.donationStatement}</Link>
-          </div>
-        </nav>
-      </div>
-
-      <div className="footer-engage">
-        <section className="footer-follow" aria-labelledby="footer-follow-title">
-          <h2 id="footer-follow-title">Follow <BrandName /></h2>
-          <div className="footer-socials">
-            <a className="footer-x" href="https://x.com" aria-label="X">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
-            </a>
-          </div>
-        </section>
-        <FooterNewsletter/>
-      </div>
-
-      <div className="footer-bottom">
-        <p>© <span suppressHydrationWarning>{currentYear}</span> <BrandName /></p>
-        <nav aria-label="Legal">
+        <nav className="footer-nav" aria-label="Footer">
+          <Link href="/about">{t.aboutUs}</Link>
+          <Link href="/archive">{t.ourArchive}</Link>
           <Link href="/privacy">{t.privacyPolicy}</Link>
           <Link href="/terms">{t.termsOfUse}</Link>
+          <Link href="/accessibility">{t.accessibilityStatement}</Link>
+          <Link href="/donation-statement">{t.donationStatement}</Link>
+          <Link href="/contact">{t.contactUs}</Link>
         </nav>
-        <p className="footer-note">Independent essays on people and the world.</p>
+
+        <div className="footer-utility">
+          <FooterNewsletter/>
+          <a className="footer-social-icon" href="https://x.com" aria-label="X">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+          </a>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© <span suppressHydrationWarning>{currentYear}</span> <BrandName /></p>
+          <p className="footer-note">Independent essays on people and the world.</p>
+        </div>
       </div>
     </footer>
   </>

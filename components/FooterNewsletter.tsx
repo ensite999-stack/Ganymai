@@ -6,7 +6,6 @@ import {createSupabaseBrowserClient} from '@/lib/supabase'
 
 export function FooterNewsletter(){
   const [email,setEmail]=useState('')
-  const [frequency,setFrequency]=useState<'daily'|'weekly'>('weekly')
   const [status,setStatus]=useState('')
   const [busy,setBusy]=useState(false)
 
@@ -18,10 +17,10 @@ export function FooterNewsletter(){
     if(!supabase){setStatus('Newsletter service is unavailable.');return}
     setBusy(true)
     setStatus('')
-    const {error}=await supabase.from('subscribers').insert({email:value,frequency,locale:'en'})
+    const {error}=await supabase.from('subscribers').insert({email:value,locale:'en'})
     setBusy(false)
     if(error){
-      if(error.code==='23505') setStatus('This email is already subscribed.')
+      if(error.code==='23505') setStatus('Already subscribed.')
       else setStatus('Could not subscribe. Please try again.')
       return
     }
@@ -30,17 +29,14 @@ export function FooterNewsletter(){
   }
 
   return <section className="footer-newsletter" aria-labelledby="footer-newsletter-title">
-    <h2 id="footer-newsletter-title">Sign up to our newsletter</h2>
-    <p>New essays and editorial updates from Ganymai.</p>
+    <h2 id="footer-newsletter-title">Newsletter</h2>
     <form onSubmit={submit}>
-      <input type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="Your email address" aria-label="Email address"/>
-      <div className="newsletter-frequency" role="group" aria-label="Newsletter frequency">
-        <label><input type="radio" name="frequency" checked={frequency==='daily'} onChange={()=>setFrequency('daily')}/> Daily</label>
-        <label><input type="radio" name="frequency" checked={frequency==='weekly'} onChange={()=>setFrequency('weekly')}/> Weekly</label>
-      </div>
-      <button type="submit" disabled={busy}>{busy?'Subscribing…':'Subscribe →'}</button>
+      <input type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email address" aria-label="Email address"/>
+      <button type="submit" disabled={busy} aria-label="Subscribe">{busy?'…':'→'}</button>
     </form>
-    {status&&<p className="newsletter-status" aria-live="polite">{status}</p>}
-    <Link className="newsletter-privacy" href="/privacy">Read our privacy policy</Link>
+    <div className="newsletter-meta">
+      {status&&<span className="newsletter-status" aria-live="polite">{status}</span>}
+      <Link href="/privacy">Privacy</Link>
+    </div>
   </section>
 }

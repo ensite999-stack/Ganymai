@@ -225,3 +225,202 @@
   .footer-bottom{display:flex;flex-direction:column;align-items:flex-start;gap:11px;margin-top:40px}
   .footer-note{text-align:left}
 }
+
+
+/* Refined minimal footer */
+.site-footer{
+  display:block!important;
+  min-height:0!important;
+  background:#F3F5F7!important;
+  color:#181B1F!important;
+  padding:58px 7vw 24px!important;
+  text-align:left!important;
+}
+.footer-inner{
+  width:min(1320px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(220px,.8fr) minmax(0,2.2fr);
+  column-gap:clamp(54px,8vw,120px);
+  align-items:start;
+}
+.footer-brand-block{
+  max-width:310px;
+}
+.footer-brand{
+  font-family:var(--font-brand),Arial,Helvetica,sans-serif;
+  font-size:42px;
+  font-weight:800;
+  letter-spacing:-.04em;
+  line-height:1;
+  margin:0 0 11px;
+}
+.footer-motto{
+  margin:0;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:17px;
+  line-height:1.45;
+  color:#5B6166;
+}
+.footer-nav{
+  display:flex;
+  flex-wrap:wrap;
+  align-content:flex-start;
+  gap:10px 24px;
+  padding-top:2px;
+}
+.footer-nav a{
+  font-size:14px;
+  line-height:1.35;
+  color:#30353A;
+  border:0!important;
+  text-decoration:none!important;
+  transition:opacity .18s ease;
+}
+.footer-nav a:hover{opacity:.5}
+
+.footer-utility{
+  grid-column:1/-1;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:48px;
+  margin-top:48px;
+  padding-top:28px;
+  border-top:1px solid #D7DBDE;
+}
+.footer-newsletter{
+  width:min(560px,100%);
+}
+.footer-newsletter h2{
+  margin:0 0 12px;
+  font-size:10px;
+  font-weight:600;
+  line-height:1;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#72787D;
+}
+.footer-newsletter form{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid #AEB4B8;
+  padding-bottom:5px;
+}
+.footer-newsletter input[type="email"]{
+  width:100%;
+  min-width:0;
+  padding:7px 0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:#181B1F;
+  outline:none;
+  font-size:16px;
+}
+.footer-newsletter input[type="email"]::placeholder{color:#8A9095}
+.footer-newsletter input[type="email"]:focus{
+  background:transparent;
+  outline:none;
+}
+.footer-newsletter button{
+  min-width:0;
+  padding:7px 0 7px 14px;
+  border:0;
+  background:transparent;
+  color:#181B1F;
+  font-size:22px;
+  line-height:1;
+  letter-spacing:0;
+  transition:transform .18s ease,opacity .18s ease;
+}
+.footer-newsletter button:hover:not(:disabled){transform:translateX(2px);opacity:.6}
+.footer-newsletter button:disabled{opacity:.35}
+.newsletter-meta{
+  min-height:18px;
+  margin-top:8px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:10px;
+  color:#80868B;
+}
+.newsletter-meta a{
+  color:inherit;
+  border:0!important;
+  text-decoration:none!important;
+}
+.newsletter-meta a:hover{color:#181B1F}
+.newsletter-status{margin:0!important;font-size:10px!important;color:#666D72!important}
+
+.footer-social-icon{
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  padding:0;
+  border:0!important;
+  text-decoration:none!important;
+  color:#181B1F;
+  opacity:.82;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.footer-social-icon:hover{opacity:.48;transform:translateY(-1px)}
+.footer-social-icon svg{
+  width:20px;
+  height:20px;
+  fill:currentColor;
+  display:block;
+}
+
+.footer-bottom{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  margin-top:38px;
+  padding-top:17px;
+  border-top:1px solid #D7DBDE;
+  font-size:10px;
+  line-height:1.4;
+  color:#858A8F;
+}
+.footer-bottom p{margin:0}
+.footer-note{text-align:right}
+
+@media(max-width:820px){
+  .footer-inner{grid-template-columns:1fr;row-gap:28px}
+  .footer-nav{padding-top:0;gap:9px 20px}
+  .footer-utility{
+    margin-top:12px;
+    padding-top:26px;
+    align-items:flex-end;
+  }
+}
+@media(max-width:760px){
+  .site-footer{padding:46px 20px 22px!important}
+  .footer-brand{font-size:38px}
+  .footer-motto{font-size:16px}
+  .footer-nav{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:11px 18px;
+  }
+  .footer-nav a{font-size:13px}
+  .footer-utility{
+    align-items:center;
+    gap:28px;
+  }
+  .footer-newsletter{flex:1}
+  .footer-newsletter input[type="email"]{font-size:15px}
+  .footer-bottom{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:6px;
+    margin-top:32px;
+  }
+  .footer-note{text-align:left}
+}
