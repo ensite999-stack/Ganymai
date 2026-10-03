@@ -851,3 +851,34 @@ main>:last-child{margin-bottom:0}
     gap:6px!important;
   }
 }
+
+
+/* Remove artificial whitespace before footer */
+main{
+  min-height:0!important;
+}
+.home-manifesto{
+  margin-bottom:0!important;
+}
+.more-wrap,
+.more-wrap-standalone{
+  margin-top:28px!important;
+  margin-bottom:0!important;
+  padding-bottom:30px!important;
+}
+.home-articles{
+  padding-bottom:0!important;
+}
+.home-articles .more-wrap{
+  padding-bottom:34px!important;
+}
+@media(max-width:640px){
+  .more-wrap,
+  .more-wrap-standalone{
+    margin-top:22px!important;
+    padding-bottom:24px!important;
+  }
+  .home-articles .more-wrap{
+    padding-bottom:28px!important;
+  }
+}
