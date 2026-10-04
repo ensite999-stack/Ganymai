@@ -1284,3 +1284,14 @@ main button:focus-visible{
 :root[data-theme="dark"] .site-footer .footer-newsletter .newsletter-status{
   color:#AAB1B5!important;
 }
+
+
+/* Ganymai wordmark uses the primary brand color */
+.header-brand-name,
+.footer-brand{
+  color:var(--brand)!important;
+}
+:root[data-theme="dark"] .header-brand-name,
+:root[data-theme="dark"] .footer-brand{
+  color:var(--brand)!important;
+}
