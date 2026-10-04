@@ -981,3 +981,25 @@ body>.site-footer{
   .header-brand-name{font-size:22px!important}
   .footer-brand{font-size:46px!important}
 }
+
+
+/* Straighter handwritten Ganymai wordmark */
+.header-brand-name{
+  font-family:var(--font-script),cursive!important;
+  font-size:21px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  letter-spacing:.01em!important;
+  transform:none!important;
+}
+.footer-brand{
+  font-family:var(--font-script),cursive!important;
+  font-size:46px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  letter-spacing:.005em!important;
+}
+@media(max-width:640px){
+  .header-brand-name{font-size:19px!important}
+  .footer-brand{font-size:41px!important}
+}
