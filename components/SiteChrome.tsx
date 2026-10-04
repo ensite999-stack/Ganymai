@@ -93,6 +93,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
       <aside className="menu-drawer" role="dialog" aria-modal="true" aria-label={t.menu}>
         <nav className="menu-links">
           <Link onClick={closeMenu} href="/about">{t.about}</Link>
+          <Link onClick={closeMenu} href="/join">Join us</Link>
           <Link onClick={closeMenu} href="/">{t.essays}</Link>
           <Link className="mobile-only" onClick={closeMenu} href="/subscribe">{t.subscribe}</Link>
           <Link className="mobile-only" onClick={closeMenu} href="/archive">{t.archive}</Link>
@@ -135,6 +136,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
 
         <nav className="footer-nav" aria-label="Footer">
           <Link href="/about">{t.aboutUs}</Link>
+          <Link href="/join">Join us</Link>
           <Link href="/archive">{t.ourArchive}</Link>
           <Link href="/submit">Submit an essay</Link>
           <Link href="/privacy">{t.privacyPolicy}</Link>

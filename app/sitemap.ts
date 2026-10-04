@@ -6,7 +6,7 @@ export const dynamic='force-dynamic'
 
 export default async function sitemap():Promise<MetadataRoute.Sitemap>{
   const now=new Date()
-  const staticPaths=['','/about','/archive','/submit','/contact','/subscribe','/donate','/privacy','/terms','/accessibility','/community-guidelines','/donation-statement']
+  const staticPaths=['','/about','/join','/archive','/submit','/contact','/subscribe','/donate','/privacy','/terms','/accessibility','/community-guidelines','/donation-statement']
   const items:MetadataRoute.Sitemap=staticPaths.map(path=>({
     url:`${SITE_URL}${path}`,
     lastModified:now,

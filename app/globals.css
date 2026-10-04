@@ -2146,3 +2146,284 @@ main button:focus-visible{
   color:#F0F2F3!important;
   opacity:1!important;
 }
+
+
+/* Independent membership and Join us */
+.about-values{
+  max-width:860px;
+  margin:48px 0 54px;
+  padding:30px 0 34px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.about-values p{
+  margin:0 0 18px;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(22px,2.5vw,31px);
+  line-height:1.38;
+}
+.about-values p:last-child{margin-bottom:0}
+.human-world{
+  color:var(--ink)!important;
+  font-weight:700!important;
+  font-size:clamp(32px,4.8vw,62px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.035em!important;
+}
+.about-join{
+  margin-top:34px!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:13px!important;
+}
+.about-join a{
+  color:var(--brand-text)!important;
+  border-bottom:1px solid var(--brand)!important;
+  padding-bottom:3px;
+}
+
+.menu-links a[href="/join"]{
+  color:var(--brand-text)!important;
+}
+.site-footer .footer-nav a[href="/join"],
+.site-footer .footer-nav a[href="/join"]:visited,
+.site-footer .footer-nav a[href="/join"]:hover,
+.site-footer .footer-nav a[href="/join"]:active{
+  color:#3F4549!important;
+}
+
+.join-page{
+  width:min(1040px,100%);
+  margin:0 auto;
+  padding:154px 28px 110px;
+}
+.join-page>.eyebrow{
+  margin:0 0 23px;
+  color:var(--brand-text);
+}
+.join-page>h1{
+  max-width:900px;
+  margin:0;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(52px,7vw,86px);
+  font-weight:400;
+  line-height:.96;
+  letter-spacing:-.04em;
+}
+.join-intro{
+  max-width:720px;
+  margin:30px 0 0;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:21px;
+  line-height:1.55;
+  color:var(--muted);
+}
+.join-belief{
+  margin:64px 0 82px;
+  padding:34px 0 38px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.join-belief p{
+  max-width:860px;
+  margin:0 0 22px;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(23px,2.7vw,32px);
+  line-height:1.4;
+}
+.join-belief p:last-child{margin-bottom:0}
+
+.join-form-head{
+  max-width:760px;
+  margin-bottom:36px;
+}
+.join-form-head>span{
+  display:block;
+  margin-bottom:13px;
+  color:var(--brand-text);
+  font-size:10px;
+  letter-spacing:.14em;
+}
+.join-form-head h2{
+  margin:0;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(34px,4.8vw,56px);
+  font-weight:400;
+  line-height:1.04;
+  letter-spacing:-.03em;
+}
+
+.join-form{
+  max-width:760px;
+  display:grid;
+  gap:28px;
+}
+.join-form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:28px;
+}
+.join-form label{
+  position:relative;
+  display:grid;
+  gap:9px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.join-form input,
+.join-form textarea{
+  width:100%;
+  border:0;
+  border-bottom:1px solid var(--line);
+  border-radius:0;
+  background:transparent;
+  color:var(--ink);
+  padding:10px 0;
+  font-size:17px;
+  line-height:1.55;
+  letter-spacing:0;
+  text-transform:none;
+  outline:none;
+  box-shadow:none;
+}
+.join-form textarea{
+  min-height:150px;
+  padding:13px;
+  border:1px solid var(--line);
+  resize:vertical;
+  font-family:Georgia,'Times New Roman',serif;
+}
+.join-form input:focus,
+.join-form textarea:focus{
+  border-color:var(--brand);
+}
+.join-form label>small{
+  justify-self:end;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:400;
+  letter-spacing:0;
+  text-transform:none;
+}
+.join-submit{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:28px;
+  padding-top:6px;
+}
+.join-submit p{
+  max-width:440px;
+  margin:0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+}
+.join-submit button{
+  flex:0 0 auto;
+  padding:11px 17px;
+  border:1px solid var(--brand);
+  background:var(--brand);
+  color:#fff;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.join-submit button:hover:not(:disabled){
+  background:transparent;
+  color:var(--brand-text);
+}
+.join-submit button:disabled{opacity:.48}
+.join-message{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+}
+.join-success{
+  max-width:720px;
+  margin-top:18px;
+  padding:32px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.join-success>span{
+  color:var(--brand-text);
+  font-size:10px;
+  letter-spacing:.14em;
+}
+.join-success h2{
+  margin:12px 0 13px;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:44px;
+  font-weight:400;
+}
+.join-success p{
+  max-width:580px;
+  margin:0;
+  color:var(--muted);
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:18px;
+  line-height:1.55;
+}
+
+:root[data-theme="dark"] .site-footer .footer-nav a[href="/join"],
+:root[data-theme="dark"] .site-footer .footer-nav a[href="/join"]:visited,
+:root[data-theme="dark"] .site-footer .footer-nav a[href="/join"]:hover,
+:root[data-theme="dark"] .site-footer .footer-nav a[href="/join"]:active{
+  color:#D5DADF!important;
+}
+
+@media(max-width:760px){
+  .about-values{
+    margin:38px 0 42px;
+    padding:24px 0 28px;
+  }
+  .about-values p{
+    font-size:22px;
+  }
+  .human-world{
+    font-size:clamp(34px,11vw,48px)!important;
+  }
+  .join-page{
+    padding:112px 20px 78px;
+  }
+  .join-page>h1{
+    font-size:clamp(45px,12.5vw,60px);
+  }
+  .join-intro{
+    margin-top:24px;
+    font-size:18px;
+  }
+  .join-belief{
+    margin:48px 0 58px;
+    padding:27px 0 30px;
+  }
+  .join-belief p{
+    font-size:21px;
+  }
+  .join-form-head{
+    margin-bottom:31px;
+  }
+  .join-form-row{
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+  .join-form{
+    gap:24px;
+  }
+  .join-form textarea{
+    min-height:135px;
+  }
+  .join-submit{
+    align-items:stretch;
+    flex-direction:column;
+    gap:18px;
+  }
+  .join-submit button{
+    width:100%;
+    padding:13px 16px;
+  }
+}
