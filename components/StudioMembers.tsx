@@ -32,7 +32,16 @@ export function StudioMembers({initial}:{initial:Member[]}){
     {message&&<p className="studio-members-message">{message}</p>}
     {rows.map(member=><article className="studio-member-row" key={member.user_id}>
       <div>
-        <strong>{member.display_name||'Editor'}</strong>
+        <input
+          className="studio-member-name"
+          defaultValue={member.display_name||'Editor'}
+          maxLength={80}
+          aria-label="Member display name"
+          onBlur={e=>{
+            const value=e.target.value.trim()||'Editor'
+            if(value!==member.display_name) updateMember(member.user_id,{display_name:value})
+          }}
+        />
         <small>{member.user_id.slice(0,8)}…</small>
       </div>
       <label>Role

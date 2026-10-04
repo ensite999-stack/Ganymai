@@ -6,7 +6,7 @@ export const metadata={title:'Comment management | Ganymai Studio',robots:{index
 
 export default async function CommentModerationPage(){
   const supabase=await createSupabaseServerClient()
-  if(!supabase)return notFound()
+  if(!supabase)redirect('/studio/sign-in')
 
   const {data:{user}}=await supabase.auth.getUser()
   if(!user)redirect('/studio/sign-in')

@@ -3040,3 +3040,21 @@ main button:focus-visible{
     gap:14px;
   }
 }
+
+
+.studio-member-name{
+  width:100%;
+  padding:4px 0;
+  border:0;
+  border-bottom:1px solid transparent;
+  border-radius:0;
+  background:transparent;
+  color:#151515;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:20px;
+  outline:none;
+}
+.studio-member-name:hover,
+.studio-member-name:focus{
+  border-bottom-color:#AAA399;
+}

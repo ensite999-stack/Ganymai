@@ -6,7 +6,7 @@ export const metadata={title:'Members | Ganymai Studio',robots:{index:false,foll
 
 export default async function StudioMembersPage(){
   const supabase=await createSupabaseServerClient()
-  if(!supabase)return notFound()
+  if(!supabase)redirect('/studio/sign-in')
 
   const {data:{user}}=await supabase.auth.getUser()
   if(!user)redirect('/studio/sign-in')
