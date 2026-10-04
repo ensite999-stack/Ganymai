@@ -12,6 +12,11 @@ export function LoginForm(){
   const [message,setMessage]=useState('')
   const [busy,setBusy]=useState(false)
 
+  function destination(){
+    const next=new URLSearchParams(window.location.search).get('next')
+    return next?.startsWith('/')?next:'/profile'
+  }
+
   async function submit(e:FormEvent){
     e.preventDefault()
     const supabase=createSupabaseBrowserClient()
@@ -22,7 +27,7 @@ export function LoginForm(){
     const {error}=await supabase.auth.signInWithPassword({email:email.trim().toLowerCase(),password})
     setBusy(false)
     if(error){setMessage(error.message);return}
-    router.push('/studio')
+    router.push(destination())
     router.refresh()
   }
 

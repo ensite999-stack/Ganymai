@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArticleShare } from '@/components/ArticleShare'
+import { SaveArticleButton } from '@/components/SaveArticleButton'
+import { CommentsSection } from '@/components/CommentsSection'
 import { BRAND_NAME } from '@/lib/brand'
 import { createPublicContentClient, sanitizePublishedHtml, type PublicBlock } from '@/lib/publicContent'
 import { SITE_URL } from '@/lib/site'
@@ -12,7 +14,7 @@ async function getPublishedArticle(slug:string){
   if(!supabase) return {supabase:null,article:null}
   const {data:article}=await supabase
     .from('articles')
-    .select('id,slug,title,dek,author_name,author_bio,editor_name,cover_caption,category_id,tags,cover_url,published_on,updated_at')
+    .select('id,slug,title,dek,author_name,author_bio,editor_name,cover_caption,category_id,tags,cover_url,published_on,updated_at,comments_enabled')
     .eq('slug',slug)
     .eq('status','published')
     .maybeSingle()
@@ -150,6 +152,7 @@ export default async function Essay({params}:{params:Promise<{slug:string}>}){
           {topicNames.map(topic=><span key={topic}>{topic}</span>)}
         </div>}
 
+        <SaveArticleButton articleId={article.id}/>
         <ArticleShare title={article.title} url={url}/>
       </aside>
 
@@ -177,5 +180,7 @@ export default async function Essay({params}:{params:Promise<{slug:string}>}){
         {article.published_on&&<p className="article-date">{article.published_on}</p>}
       </div>
     </div>
+
+    {article.comments_enabled&&<CommentsSection articleId={article.id} slug={article.slug}/>}
   </article>
 }

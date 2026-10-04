@@ -7,6 +7,7 @@ import { ui } from '@/lib/content'
 import { BrandName } from '@/components/BrandName'
 import { BrandMark } from '@/components/BrandMark'
 import { FooterNewsletter } from '@/components/FooterNewsletter'
+import { createSupabaseBrowserClient } from '@/lib/supabase'
 
 export function SiteChrome({children}:{children:React.ReactNode}) {
   const pathname=usePathname()
@@ -16,6 +17,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
   const [search,setSearch] = useState(false)
   const [visible,setVisible] = useState(true)
   const [solid,setSolid] = useState(false)
+  const [signedIn,setSignedIn] = useState(false)
   const t = ui.en
   const currentYear = new Date().getFullYear()
 
@@ -26,6 +28,16 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
     document.documentElement.dataset.theme=dark?'dark':'light'
     localStorage.setItem('ganymai-theme',dark?'dark':'light')
   },[dark])
+  useEffect(()=>{
+    const supabase=createSupabaseBrowserClient()
+    if(!supabase) return
+    let active=true
+    supabase.auth.getSession().then(({data})=>{ if(active) setSignedIn(!!data.session) })
+    const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>{
+      if(active) setSignedIn(!!session)
+    })
+    return()=>{active=false;subscription.unsubscribe()}
+  },[])
   useEffect(()=>{
     let last=window.scrollY
     const onScroll=()=>{ const y=window.scrollY; setSolid(y>32); setVisible(y<80 || y<last); last=y }
@@ -62,7 +74,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
         <button className="search-button" onClick={()=>setSearch(v=>!v)}>{t.search}</button>
         <Link className="desktop-only top-link" href="/subscribe">{t.subscribe}</Link>
         <Link className="desktop-only top-link" href="/archive">{t.archive}</Link>
-        <Link className="desktop-only top-link" href="/login">Log in</Link>
+        <Link className="desktop-only top-link" href={signedIn?"/profile":"/login"}>{signedIn?'Account':'Log in'}</Link>
         <button className="menu-button" aria-label={menuMounted?t.closeMenu:t.menu} aria-expanded={menuOpen} onClick={menuMounted?closeMenu:openMenu}><i/><i/><i/></button>
       </div>
       {search && <div className="search-panel"><input autoFocus placeholder={`${t.search}…`} /><button onClick={()=>setSearch(false)}>×</button></div>}
@@ -76,8 +88,15 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
           <Link onClick={closeMenu} href="/">{t.essays}</Link>
           <Link className="mobile-only" onClick={closeMenu} href="/subscribe">{t.subscribe}</Link>
           <Link className="mobile-only" onClick={closeMenu} href="/archive">{t.archive}</Link>
-          <Link onClick={closeMenu} href="/login">Log in</Link>
-          <Link onClick={closeMenu} href="/signup">{t.signup}</Link>
+          {signedIn
+            ?<>
+              <Link onClick={closeMenu} href="/library">My Library</Link>
+              <Link onClick={closeMenu} href="/profile">Account</Link>
+            </>
+            :<>
+              <Link onClick={closeMenu} href="/login">Log in</Link>
+              <Link onClick={closeMenu} href="/signup">{t.signup}</Link>
+            </>}
           <Link onClick={closeMenu} href="/contact">{t.contact}</Link>
           <Link onClick={closeMenu} href="/donate">{t.donate}</Link>
         </nav>

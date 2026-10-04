@@ -31,6 +31,7 @@ type Draft={
   tags:string
   cover:string
   date:string
+  commentsEnabled:boolean
   blocks:Block[]
   articleId?:string|null
   articleSlug?:string|null
@@ -40,7 +41,7 @@ type SavedSelection={blockId:string;range:Range}
 
 const uid=()=>typeof crypto!=='undefined'&&'randomUUID' in crypto?crypto.randomUUID():`b-${Date.now()}-${Math.random().toString(36).slice(2)}`
 const fiveParagraphs=():Block[]=>Array.from({length:5},(_,i)=>({id:`paragraph-${i+1}`,type:'paragraph',html:'',text:''}))
-const emptyDraft=():Draft=>({title:'',dek:'',author:'',authorBio:'',editor:'',coverCaption:'',category:'',label:'Essay',icon:'bookmark',tags:'',cover:'',date:new Date().toISOString().slice(0,10),blocks:fiveParagraphs(),articleId:null,articleSlug:null,articleStatus:'draft'})
+const emptyDraft=():Draft=>({title:'',dek:'',author:'',authorBio:'',editor:'',coverCaption:'',category:'',label:'Essay',icon:'bookmark',tags:'',cover:'',date:new Date().toISOString().slice(0,10),commentsEnabled:false,blocks:fiveParagraphs(),articleId:null,articleSlug:null,articleStatus:'draft'})
 
 function escapeHtml(value:string){
   return value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
@@ -103,6 +104,7 @@ export function StudioEditor(){
   const [tags,setTags]=useState(initial.tags)
   const [cover,setCover]=useState(initial.cover)
   const [date,setDate]=useState(initial.date)
+  const [commentsEnabled,setCommentsEnabled]=useState(initial.commentsEnabled)
   const [blocks,setBlocks]=useState<Block[]>(initial.blocks)
   const [articleId,setArticleId]=useState<string|null>(null)
   const [articleSlug,setArticleSlug]=useState<string|null>(null)
@@ -134,6 +136,7 @@ export function StudioEditor(){
       setTags(x.tags||'')
       setCover(x.cover||'')
       setDate(x.date||initial.date)
+      setCommentsEnabled(!!x.commentsEnabled)
       setBlocks(normalizeBlocks(x.blocks))
       setArticleId(x.articleId||null)
       setArticleSlug(x.articleSlug||null)
@@ -158,11 +161,11 @@ export function StudioEditor(){
     return()=>document.removeEventListener('selectionchange',capture)
   },[])
 
-  const snapshot=():Draft=>({title,dek,author,authorBio,editor,coverCaption,category,label:articleLabel,icon:labelIcon,tags,cover,date,blocks,articleId,articleSlug,articleStatus})
+  const snapshot=():Draft=>({title,dek,author,authorBio,editor,coverCaption,category,label:articleLabel,icon:labelIcon,tags,cover,date,commentsEnabled,blocks,articleId,articleSlug,articleStatus})
   useEffect(()=>{
     const t=setTimeout(()=>localStorage.setItem('ganymai-draft',JSON.stringify(snapshot())),250)
     return()=>clearTimeout(t)
-  },[title,dek,author,authorBio,editor,coverCaption,category,articleLabel,labelIcon,tags,cover,date,blocks,articleId,articleSlug,articleStatus])
+  },[title,dek,author,authorBio,editor,coverCaption,category,articleLabel,labelIcon,tags,cover,date,commentsEnabled,blocks,articleId,articleSlug,articleStatus])
 
   function loadDraft(d:Draft){
     setTitle(d.title||'')
@@ -177,6 +180,7 @@ export function StudioEditor(){
     setTags(d.tags||'')
     setCover(d.cover||'')
     setDate(d.date||new Date().toISOString().slice(0,10))
+    setCommentsEnabled(!!d.commentsEnabled)
     setBlocks(normalizeBlocks(d.blocks))
     setArticleId(d.articleId||null)
     setArticleSlug(d.articleSlug||null)
@@ -329,7 +333,7 @@ export function StudioEditor(){
     setNotice(articleId?'Updating published article…':'Publishing…')
     try{
       const categoryId=await resolveCategory(supabase)
-      const articleValues={title:title.trim(),dek:dek.trim()||null,author_name:author.trim(),author_bio:authorBio.trim()||null,editor_name:editor.trim()||null,cover_caption:coverCaption.trim()||null,category_id:categoryId,label_text:articleLabel.trim()||null,label_icon:labelIcon,cover_url:cover.trim()||null,status:'published' as const,published_on:date,updated_at:new Date().toISOString(),tags:tags.split(',').map(x=>x.trim()).filter(Boolean),created_by:user.id}
+      const articleValues={title:title.trim(),dek:dek.trim()||null,author_name:author.trim(),author_bio:authorBio.trim()||null,editor_name:editor.trim()||null,cover_caption:coverCaption.trim()||null,category_id:categoryId,label_text:articleLabel.trim()||null,label_icon:labelIcon,cover_url:cover.trim()||null,status:'published' as const,published_on:date,updated_at:new Date().toISOString(),tags:tags.split(',').map(x=>x.trim()).filter(Boolean),comments_enabled:commentsEnabled,created_by:user.id}
       let idValue=articleId
       let slugValue=articleSlug
       if(idValue){
@@ -437,6 +441,10 @@ export function StudioEditor(){
         <div className="homepage-label-preview"><small>HOME CARD PREVIEW</small><ArticleLabel icon={labelIcon}>{articleLabel.trim()||'Essay'}</ArticleLabel></div>
         <label>Tags<input value={tags} onChange={e=>setTags(e.target.value)} placeholder="world, memory, river"/></label>
         <label className="full">Cover<input value={cover} onChange={e=>setCover(e.target.value)} placeholder="Cover image URL"/></label>
+        <label className="studio-toggle full">
+          <input type="checkbox" checked={commentsEnabled} onChange={e=>setCommentsEnabled(e.target.checked)}/>
+          <span><b>Enable comments</b><small>Selected essays only. Readers can make one considered comment each.</small></span>
+        </label>
       </div>
 
       <div className="blocks">
