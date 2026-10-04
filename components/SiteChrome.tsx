@@ -42,6 +42,60 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
       window.removeEventListener('keydown',onKey)
     }
   },[menuMounted])
+  useEffect(()=>{
+    if(pathname.startsWith('/studio')) return
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const selector=[
+      '.home-manifesto',
+      '.home-article-card',
+      '.section-rule',
+      '.text-page>h1',
+      '.text-page>h2',
+      '.text-page>p',
+      '.text-page>ul',
+      '.join-page>.join-intro',
+      '.join-page>.join-belief',
+      '.join-page>.join-form-head',
+      '.join-page>.join-form',
+      '.essay-head',
+      '.published-cover',
+      '.aeon-essay-layout',
+      '.comments-section',
+      '.site-footer .footer-brand-block',
+      '.site-footer .footer-nav',
+      '.site-footer .footer-newsletter',
+      '.site-footer .footer-social-row',
+      '.site-footer .footer-bottom'
+    ].join(',')
+
+    const timer=window.setTimeout(()=>{
+      const nodes=Array.from(document.querySelectorAll<HTMLElement>(selector))
+      nodes.forEach((node,index)=>{
+        node.classList.add('motion-reveal')
+        node.style.setProperty('--reveal-delay',String(Math.min(index%6,5)))
+      })
+
+      const observer=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(!entry.isIntersecting)return
+          const el=entry.target as HTMLElement
+          el.classList.add('motion-in')
+          observer.unobserve(el)
+        })
+      },{threshold:.12,rootMargin:'0px 0px -5% 0px'})
+
+      nodes.forEach(node=>observer.observe(node))
+      ;(window as any).__ganymaiRevealObserver=observer
+    },40)
+
+    return()=>{
+      window.clearTimeout(timer)
+      const observer=(window as any).__ganymaiRevealObserver as IntersectionObserver|undefined
+      observer?.disconnect()
+      delete (window as any).__ganymaiRevealObserver
+    }
+  },[pathname])
 
   function goBack(){
     if(window.history.length>1){

@@ -3472,3 +3472,113 @@ main button:focus-visible{
     transform:none!important;
   }
 }
+
+
+/* Motion pass 2: visible, cross-browser reveal */
+@media(prefers-reduced-motion:no-preference){
+  .motion-reveal{
+    opacity:0;
+    transform:translateY(34px);
+    transition:
+      opacity .72s cubic-bezier(.22,.76,.22,1),
+      transform .82s cubic-bezier(.18,.78,.18,1);
+    transition-delay:calc(var(--reveal-delay,0) * 55ms);
+    will-change:opacity,transform;
+  }
+  .motion-reveal.motion-in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .section-rule.motion-reveal{
+    transform:translateY(22px);
+  }
+
+  .site-footer .motion-reveal{
+    transform:translateY(26px);
+  }
+}
+
+/* Make desktop hover unmistakable while staying editorial */
+@media(hover:hover) and (pointer:fine){
+  .home-article-card:hover{
+    transform:translateY(-7px);
+  }
+  .home-article-card:hover .home-card-cover img{
+    transform:scale(1.052);
+  }
+  .home-article-card:hover .home-card-copy h2{
+    transform:translateX(11px);
+  }
+  .home-article-card:hover .home-card-copy .article-label{
+    transform:translateX(6px);
+  }
+  .home-article-card:hover .home-card-dek{
+    transform:translateX(4px);
+  }
+
+  .topbar .logo:hover{
+    transform:translateX(5px) scale(1.015);
+  }
+  .topbar .search-button:hover,
+  .topbar .top-link:hover{
+    transform:translateY(-2px);
+    opacity:.7!important;
+  }
+  .topbar .menu-button:hover{
+    transform:translateX(4px);
+  }
+
+  .menu-layer.open .menu-links a:hover{
+    transform:translateX(12px) scale(1)!important;
+  }
+
+  .site-footer .footer-nav a:hover{
+    transform:translateX(8px);
+    color:#fff!important;
+  }
+  .site-footer .footer-social-row a:hover{
+    transform:translateY(-5px) scale(1.08);
+    color:var(--brand)!important;
+  }
+}
+
+/* Stronger visual breathing accent */
+.section-rule::after{
+  width:72px!important;
+}
+@media(hover:hover) and (pointer:fine){
+  .home-articles:hover .section-rule::after{
+    width:168px!important;
+  }
+}
+
+/* More tactile action states */
+.more-button:hover{
+  transform:translateY(-2px);
+}
+.join-submit button:hover:not(:disabled),
+.comment-submit-row button:hover:not(:disabled){
+  transform:translateY(-2px);
+}
+.more-button:active,
+.join-submit button:active:not(:disabled),
+.comment-submit-row button:active:not(:disabled){
+  transform:translateY(1px) scale(.97);
+}
+
+@media(max-width:760px) and (prefers-reduced-motion:no-preference){
+  .motion-reveal{
+    transform:translateY(26px);
+    transition-duration:.62s,.7s;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .motion-reveal,
+  .motion-reveal.motion-in{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+}
