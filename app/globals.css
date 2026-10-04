@@ -3111,3 +3111,118 @@ main button:focus-visible{
     transition:none!important;
   }
 }
+
+
+/* Stronger Ganymai framing: brand header, black footer */
+.topbar,
+.topbar.solid,
+.topbar.menu-active{
+  background:var(--brand)!important;
+  color:#F7F8F2!important;
+  border-bottom-color:transparent!important;
+}
+.topbar .logo,
+.topbar .logo:hover,
+.topbar .logo:active,
+.topbar .logo:focus,
+.topbar .search-button,
+.topbar .top-link,
+.topbar .top-link:visited,
+.topbar .top-link:hover,
+.topbar .top-link:active,
+.topbar .menu-button{
+  color:#F7F8F2!important;
+  opacity:1!important;
+}
+.topbar .logo .brand-mark{
+  color:#F7F8F2!important;
+}
+.topbar .logo .header-brand-name{
+  color:#F7F8F2!important;
+}
+.topbar .menu-button i{
+  background:#F7F8F2!important;
+}
+.search-panel{
+  background:var(--brand)!important;
+  color:#F7F8F2!important;
+  border-top-color:rgba(255,255,255,.24)!important;
+  border-bottom-color:transparent!important;
+}
+.search-panel input{
+  color:#F7F8F2!important;
+  border-bottom-color:rgba(255,255,255,.72)!important;
+}
+.search-panel input::placeholder{
+  color:rgba(247,248,242,.72)!important;
+  opacity:1!important;
+}
+.search-panel button{
+  color:#F7F8F2!important;
+}
+
+/* Black editorial footer */
+.site-footer{
+  background:#0A0A0A!important;
+  color:#E7E9E6!important;
+}
+.site-footer .footer-brand{
+  color:var(--brand)!important;
+}
+.site-footer .footer-motto,
+.site-footer .footer-nav a,
+.site-footer .footer-nav a:visited,
+.site-footer .footer-nav a:hover,
+.site-footer .footer-nav a:active,
+.site-footer .footer-newsletter-label,
+.site-footer .footer-note,
+.site-footer .footer-bottom,
+.site-footer .footer-newsletter .newsletter-status{
+  color:#C9CDCA!important;
+  opacity:1!important;
+}
+.site-footer .footer-nav a[href="/submit"],
+.site-footer .footer-nav a[href="/submit"]:visited,
+.site-footer .footer-nav a[href="/submit"]:hover,
+.site-footer .footer-nav a[href="/submit"]:active,
+.site-footer .footer-nav a[href="/join"],
+.site-footer .footer-nav a[href="/join"]:visited,
+.site-footer .footer-nav a[href="/join"]:hover,
+.site-footer .footer-nav a[href="/join"]:active{
+  color:#C9CDCA!important;
+}
+.site-footer .footer-newsletter input[type="email"]{
+  color:#F3F4F1!important;
+  border-bottom-color:#5A5E5B!important;
+  background:transparent!important;
+}
+.site-footer .footer-newsletter input[type="email"]::placeholder{
+  color:#8F9591!important;
+  opacity:1!important;
+}
+.site-footer .footer-newsletter button,
+.site-footer .footer-newsletter button:hover,
+.site-footer .footer-newsletter button:active,
+.site-footer .footer-social-row a,
+.site-footer .footer-social-row a:visited,
+.site-footer .footer-social-row a:hover,
+.site-footer .footer-social-row a:active{
+  color:#F3F4F1!important;
+  opacity:1!important;
+}
+:root[data-theme="dark"] .topbar,
+:root[data-theme="dark"] .topbar.solid,
+:root[data-theme="dark"] .topbar.menu-active{
+  background:var(--brand)!important;
+  color:#F7F8F2!important;
+}
+:root[data-theme="dark"] .site-footer{
+  background:#070707!important;
+}
+:root[data-theme="dark"] .site-footer .footer-motto,
+:root[data-theme="dark"] .site-footer .footer-nav a,
+:root[data-theme="dark"] .site-footer .footer-newsletter-label,
+:root[data-theme="dark"] .site-footer .footer-note,
+:root[data-theme="dark"] .site-footer .footer-bottom{
+  color:#D5D8D5!important;
+}
