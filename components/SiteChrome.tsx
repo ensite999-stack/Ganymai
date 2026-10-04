@@ -130,6 +130,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
           <Link href="/privacy">{t.privacyPolicy}</Link>
           <Link href="/terms">{t.termsOfUse}</Link>
           <Link href="/accessibility">{t.accessibilityStatement}</Link>
+          <Link href="/community-guidelines">Community Guidelines</Link>
           <Link href="/donation-statement">{t.donationStatement}</Link>
           <Link href="/contact">{t.contactUs}</Link>
         </nav>
