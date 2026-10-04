@@ -1,13 +1,59 @@
 'use client'
-import {useState} from 'react'
+
+import {FormEvent,useState} from 'react'
+import Link from 'next/link'
 import {createSupabaseBrowserClient} from '@/lib/supabase'
 
 export function AuthForm(){
-  const [email,setEmail]=useState(''); const [password,setPassword]=useState(''); const [message,setMessage]=useState('')
-  async function act(mode:'signup'|'signin'){
-    const supabase=createSupabaseBrowserClient(); if(!supabase){setMessage('Supabase is not configured yet.');return}
-    const result=mode==='signup'?await supabase.auth.signUp({email,password}):await supabase.auth.signInWithPassword({email,password})
-    setMessage(result.error?result.error.message:(mode==='signup'?'Account created. Check email if confirmation is enabled.':'Signed in.'))
+  const [email,setEmail]=useState('')
+  const [password,setPassword]=useState('')
+  const [message,setMessage]=useState('')
+  const [busy,setBusy]=useState(false)
+
+  async function submit(e:FormEvent){
+    e.preventDefault()
+    const value=email.trim().toLowerCase()
+    if(!value||!password){setMessage('Enter your email and password.');return}
+    const supabase=createSupabaseBrowserClient()
+    if(!supabase){setMessage('Account creation is unavailable.');return}
+
+    setBusy(true)
+    setMessage('')
+    const {data,error}=await supabase.auth.signUp({email:value,password})
+    setBusy(false)
+
+    if(error){setMessage(error.message);return}
+    setPassword('')
+    setMessage(data.session
+      ?'Account created. You are signed in.'
+      :'Account created. Check your email to confirm your address.')
   }
-  return <div className="auth-box"><label>Email<input type="email" value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Password<input type="password" value={password} onChange={e=>setPassword(e.target.value)}/></label><div><button onClick={()=>act('signup')}>Create account</button><button onClick={()=>act('signin')}>Sign in</button></div><p>{message}</p></div>
+
+  return <form className="account-form" onSubmit={submit}>
+    <label>Email
+      <input
+        type="email"
+        autoComplete="email"
+        inputMode="email"
+        value={email}
+        onChange={e=>setEmail(e.target.value)}
+        required
+      />
+    </label>
+    <label>Password
+      <input
+        type="password"
+        autoComplete="new-password"
+        value={password}
+        onChange={e=>setPassword(e.target.value)}
+        minLength={6}
+        required
+      />
+    </label>
+    <button className="account-primary" type="submit" disabled={busy}>
+      {busy?'Creating…':'Create account'}
+    </button>
+    {message&&<p className="account-message" aria-live="polite">{message}</p>}
+    <p className="account-secondary">Already have an account? <Link href="/login">Sign in</Link>.</p>
+  </form>
 }

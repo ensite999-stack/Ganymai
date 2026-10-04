@@ -1295,3 +1295,166 @@ main button:focus-visible{
 :root[data-theme="dark"] .footer-brand{
   color:var(--brand)!important;
 }
+
+
+/* Account pages: clean editorial sign-up and sign-in */
+.account-page{
+  width:min(620px,100%);
+  margin:0 auto;
+  padding:154px 28px 110px;
+}
+.account-page>.eyebrow{
+  margin:0 0 24px;
+  color:var(--muted);
+}
+.account-page>h1{
+  max-width:560px;
+  margin:0;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(52px,7vw,78px);
+  font-weight:400;
+  line-height:.98;
+  letter-spacing:-.038em;
+}
+.account-intro{
+  max-width:470px;
+  margin:26px 0 0;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:19px;
+  line-height:1.55;
+  color:var(--muted);
+}
+.account-form,
+.login-form{
+  width:min(460px,100%);
+  margin-top:48px;
+  display:grid;
+  gap:25px;
+}
+.account-form label,
+.login-form label{
+  display:grid;
+  gap:9px;
+  margin:0;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.account-form input,
+.login-form input{
+  width:100%;
+  height:43px;
+  padding:8px 0 9px;
+  border:0!important;
+  border-bottom:1px solid var(--line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  font-size:17px;
+  letter-spacing:0;
+  text-transform:none;
+  outline:none!important;
+  box-shadow:none!important;
+}
+.account-form input:focus,
+.login-form input:focus{
+  border-bottom-color:var(--brand)!important;
+}
+.account-primary,
+.login-form>button{
+  width:max-content;
+  min-width:132px;
+  margin-top:5px;
+  padding:11px 17px!important;
+  border:1px solid var(--brand)!important;
+  background:var(--brand)!important;
+  color:#fff!important;
+  font-size:11px!important;
+  font-weight:600;
+  line-height:1.2;
+  letter-spacing:.1em!important;
+  text-transform:uppercase!important;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.account-primary:hover:not(:disabled),
+.login-form>button:hover:not(:disabled){
+  background:transparent!important;
+  color:var(--brand-text)!important;
+  border-color:var(--brand)!important;
+}
+.account-primary:disabled,
+.login-form>button:disabled{
+  opacity:.48;
+  cursor:default;
+}
+.account-message,
+.login-message,
+.account-secondary,
+.login-secondary{
+  margin:0;
+  font-size:12px;
+  line-height:1.55;
+  color:var(--muted);
+}
+.account-secondary,
+.login-secondary{
+  margin-top:-4px;
+}
+.account-secondary a,
+.login-secondary a{
+  color:var(--brand-text)!important;
+  border-bottom:1px solid var(--brand)!important;
+}
+.account-secondary a:hover,
+.login-secondary a:hover{
+  color:var(--brand)!important;
+}
+
+/* The old two-button auth box is intentionally retired */
+.auth-box{display:none!important}
+
+@media(max-width:640px){
+  .account-page{
+    padding:112px 20px 78px;
+  }
+  .account-page>.eyebrow{
+    margin-bottom:19px;
+  }
+  .account-page>h1{
+    font-size:clamp(44px,13vw,56px);
+    line-height:1;
+    letter-spacing:-.035em;
+  }
+  .account-intro{
+    margin-top:21px;
+    font-size:17px;
+    line-height:1.5;
+  }
+  .account-form,
+  .login-form{
+    margin-top:38px;
+    gap:22px;
+  }
+  .account-form input,
+  .login-form input{
+    height:42px;
+    font-size:16px;
+  }
+  .account-primary,
+  .login-form>button{
+    width:100%;
+    padding:13px 16px!important;
+  }
+}
+
+/* Keep the legacy login wrapper harmless if cached markup appears */
+.login-page{
+  width:min(620px,100%);
+  margin:0 auto;
+  padding:154px 28px 110px;
+}
+@media(max-width:640px){
+  .login-page{padding:112px 20px 78px}
+}

@@ -8,9 +8,10 @@ export const metadata:Metadata={
 }
 
 export default function Login(){
-  return <section className="login-page">
+  return <section className="account-page">
     <div className="eyebrow">SIGN IN</div>
     <h1>Welcome back.</h1>
+    <p className="account-intro">Sign in with the email address connected to your account.</p>
     <LoginForm/>
   </section>
 }
