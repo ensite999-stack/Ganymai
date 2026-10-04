@@ -1183,3 +1183,37 @@ main button:focus-visible{
 :root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]::placeholder{
   color:rgba(255,255,255,.64)!important;
 }
+
+
+/* Dark-mode footer: preserve the grass identity without a bright green block */
+:root[data-theme="dark"]{
+  --footer-dark:#2F3D24;
+}
+:root[data-theme="dark"] .site-footer{
+  background:var(--footer-dark)!important;
+  color:#EEF2E8!important;
+}
+:root[data-theme="dark"] .site-footer .footer-brand{
+  color:#F5F7F1!important;
+}
+:root[data-theme="dark"] .site-footer .footer-motto,
+:root[data-theme="dark"] .site-footer .footer-nav a,
+:root[data-theme="dark"] .site-footer .footer-note,
+:root[data-theme="dark"] .site-footer .footer-bottom,
+:root[data-theme="dark"] .site-footer .footer-newsletter-label{
+  color:#D9E0D2!important;
+}
+:root[data-theme="dark"] .site-footer .footer-social-row a,
+:root[data-theme="dark"] .site-footer .footer-newsletter button{
+  color:#EEF2E8!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]{
+  color:#F5F7F1!important;
+  border-bottom-color:rgba(238,242,232,.52)!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]::placeholder{
+  color:rgba(238,242,232,.48)!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]:focus{
+  border-bottom-color:#EEF2E8!important;
+}
