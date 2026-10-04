@@ -411,7 +411,7 @@ export function StudioEditor(){
       <b><BrandName /> Studio</b>
       <p>Article editor</p>
       <div className="studio-status"><span>Status</span><strong>{articleStatus}</strong></div>
-      <a href="/studio/comments">Comment moderation</a>
+      <a href="/studio/comments">Comment management</a>
       <a href="/">← Public site</a>
     </aside>
 
@@ -444,7 +444,7 @@ export function StudioEditor(){
         <label className="full">Cover<input value={cover} onChange={e=>setCover(e.target.value)} placeholder="Cover image URL"/></label>
         <label className="studio-toggle full">
           <input type="checkbox" checked={commentsEnabled} onChange={e=>setCommentsEnabled(e.target.checked)}/>
-          <span><b>Enable comments</b><small>Selected essays only. Readers can make one considered comment each.</small></span>
+          <span><b>Enable comments</b><small>Selected essays only. Comments publish automatically after automated checks.</small></span>
         </label>
       </div>
 

@@ -2,7 +2,7 @@ import {notFound} from 'next/navigation'
 import {CommentModeration} from '@/components/CommentModeration'
 import {createSupabaseServerClient} from '@/lib/supabaseServer'
 
-export const metadata={title:'Comment moderation | Ganymai Studio',robots:{index:false,follow:false}}
+export const metadata={title:'Comment management | Ganymai Studio',robots:{index:false,follow:false}}
 
 export default async function CommentModerationPage(){
   const supabase=await createSupabaseServerClient()
@@ -16,7 +16,7 @@ export default async function CommentModerationPage(){
 
   return <main className="moderation-page">
     <header>
-      <div><span>GANYMAI STUDIO</span><h1>Comment moderation</h1></div>
+      <div><span>GANYMAI STUDIO</span><h1>Comment management</h1></div>
       <nav><a href="/studio">Article Studio</a><a href="/">Public site</a></nav>
     </header>
     <p className="moderation-principle">Approve ordinary disagreement freely. Reject only material that clearly crosses the moderation policy: violence or threats, explicit sexual exploitation, gambling promotion, advertising or spam, terrorist advocacy, criminal facilitation, severe harassment or hate, or other clearly unlawful material.</p>
