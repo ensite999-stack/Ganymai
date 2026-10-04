@@ -114,6 +114,15 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
 
         <FooterNewsletter/>
 
+        <div className="footer-social-row" aria-label="Social links">
+          <a href="https://x.com" target="_blank" rel="noreferrer" aria-label="X">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+          </a>
+          <a href="https://www.patreon.com" target="_blank" rel="noreferrer" aria-label="Patreon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.62 4.08a6.04 6.04 0 1 1 0 12.08 6.04 6.04 0 0 1 0-12.08ZM3 4.08h3.18V20H3V4.08Z"/></svg>
+          </a>
+        </div>
+
         <div className="footer-bottom">
           <p>© <span suppressHydrationWarning>{currentYear}</span> <BrandName /></p>
           <p className="footer-note">Independent essays on people and the world.</p>

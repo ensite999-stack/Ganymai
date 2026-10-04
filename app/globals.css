@@ -1003,3 +1003,53 @@ body>.site-footer{
   .header-brand-name{font-size:19px!important}
   .footer-brand{font-size:41px!important}
 }
+
+
+/* Footer social icons between newsletter and copyright */
+.footer-social-row{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:17px;
+  margin:22px 0 2px;
+}
+.footer-social-row a{
+  width:22px;
+  height:22px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(255,255,255,.9);
+  opacity:.9;
+  border:0!important;
+  text-decoration:none!important;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.footer-social-row a:hover{
+  opacity:.56;
+  transform:translateY(-1px);
+}
+.footer-social-row svg{
+  width:18px;
+  height:18px;
+  display:block;
+  fill:currentColor;
+}
+.footer-social-row a[aria-label="Patreon"] svg{
+  width:19px;
+  height:19px;
+}
+.footer-bottom{
+  margin-top:18px!important;
+}
+@media(max-width:640px){
+  .footer-social-row{
+    justify-content:flex-start;
+    gap:16px;
+    margin-top:20px;
+  }
+  .footer-bottom{
+    margin-top:16px!important;
+  }
+}
