@@ -5,7 +5,7 @@ export const metadata:Metadata={
   description:'Submit an essay to Ganymai by email.'
 }
 
-const email='hello@Ganymai.com'
+const email='submissions@Ganymai.com'
 const subject=encodeURIComponent('Essay submission — ')
 const mailto='mailto:'+email+'?subject='+subject
 
