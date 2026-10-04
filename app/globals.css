@@ -1962,3 +1962,79 @@ main button:focus-visible{
   }
   .library-item>button{justify-self:start}
 }
+
+
+/* Email-first submissions: no public writer backend */
+.menu-links a[href="/submit"],
+.site-footer a[href="/submit"]{
+  color:var(--brand-text)!important;
+}
+.submission-page>p{
+  max-width:720px;
+}
+.submission-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:34px;
+  margin-top:64px;
+  padding-top:28px;
+  border-top:1px solid var(--line);
+}
+.submission-grid section{
+  min-width:0;
+}
+.submission-grid section>span{
+  display:block;
+  margin-bottom:18px;
+  color:var(--brand-text);
+  font-size:10px;
+  letter-spacing:.12em;
+}
+.submission-grid h2{
+  margin:0 0 12px!important;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:28px!important;
+  font-weight:400;
+  line-height:1.08;
+}
+.submission-grid p{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.6;
+}
+.submission-email{
+  margin-top:64px;
+  padding:28px 0 0;
+  border-top:1px solid var(--line);
+}
+.submission-email>span{
+  display:block;
+  margin-bottom:12px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:.14em;
+}
+.submission-email>a{
+  display:inline-block;
+  color:var(--brand-text)!important;
+  border-bottom:1px solid var(--brand)!important;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(28px,4vw,42px);
+  line-height:1.1;
+}
+.submission-email>p{
+  margin:12px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:760px){
+  .submission-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+    margin-top:46px;
+  }
+  .submission-email{
+    margin-top:48px;
+  }
+}

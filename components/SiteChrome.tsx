@@ -97,6 +97,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
               <Link onClick={closeMenu} href="/login">Log in</Link>
               <Link onClick={closeMenu} href="/signup">{t.signup}</Link>
             </>}
+          <Link onClick={closeMenu} href="/submit">Submit an essay</Link>
           <Link onClick={closeMenu} href="/contact">{t.contact}</Link>
           <Link onClick={closeMenu} href="/donate">{t.donate}</Link>
         </nav>
@@ -127,6 +128,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
         <nav className="footer-nav" aria-label="Footer">
           <Link href="/about">{t.aboutUs}</Link>
           <Link href="/archive">{t.ourArchive}</Link>
+          <Link href="/submit">Submit an essay</Link>
           <Link href="/privacy">{t.privacyPolicy}</Link>
           <Link href="/terms">{t.termsOfUse}</Link>
           <Link href="/accessibility">{t.accessibilityStatement}</Link>

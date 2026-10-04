@@ -54,7 +54,7 @@ export function CommentsSection({articleId,slug}:{articleId:string;slug:string})
       const [{data:profile},{data:likes},{data:owned}]=await Promise.all([
         supabase.from('reader_profiles').select('display_name').eq('user_id',user.id).maybeSingle(),
         supabase.from('comment_likes').select('comment_id').eq('user_id',user.id),
-        supabase.from('articles').select('id').eq('id',articleId).eq('created_by',user.id).maybeSingle()
+        supabase.from('editor_accounts').select('role').eq('user_id',user.id).maybeSingle()
       ])
       setDisplayName(profile?.display_name||'')
       setLiked(new Set((likes||[]).map(x=>x.comment_id)))
