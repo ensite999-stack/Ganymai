@@ -1217,3 +1217,70 @@ main button:focus-visible{
 :root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]:focus{
   border-bottom-color:#EEF2E8!important;
 }
+
+
+/* Footer returns to cool white; brand green remains an accent elsewhere */
+.site-footer{
+  background:#F3F5F7!important;
+  color:#181B1F!important;
+}
+.site-footer .footer-brand{
+  color:#181B1F!important;
+}
+.site-footer .footer-motto,
+.site-footer .footer-nav a,
+.site-footer .footer-note,
+.site-footer .footer-bottom,
+.site-footer .footer-newsletter-label{
+  color:#5D6368!important;
+}
+.site-footer .footer-social-row a,
+.site-footer .footer-newsletter button{
+  color:#181B1F!important;
+}
+.site-footer .footer-newsletter input[type="email"]{
+  color:#181B1F!important;
+  border-bottom-color:#AEB4B8!important;
+}
+.site-footer .footer-newsletter input[type="email"]::placeholder{
+  color:#8A9095!important;
+}
+.site-footer .footer-newsletter input[type="email"]:focus{
+  border-bottom-color:#181B1F!important;
+}
+.site-footer .footer-newsletter .newsletter-status{
+  color:#666D72!important;
+}
+
+/* Cool dark counterpart */
+:root[data-theme="dark"] .site-footer{
+  background:#171A1C!important;
+  color:#F0F2F3!important;
+}
+:root[data-theme="dark"] .site-footer .footer-brand{
+  color:#F4F5F6!important;
+}
+:root[data-theme="dark"] .site-footer .footer-motto,
+:root[data-theme="dark"] .site-footer .footer-nav a,
+:root[data-theme="dark"] .site-footer .footer-note,
+:root[data-theme="dark"] .site-footer .footer-bottom,
+:root[data-theme="dark"] .site-footer .footer-newsletter-label{
+  color:#B9C0C4!important;
+}
+:root[data-theme="dark"] .site-footer .footer-social-row a,
+:root[data-theme="dark"] .site-footer .footer-newsletter button{
+  color:#E7EAEC!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]{
+  color:#F0F2F3!important;
+  border-bottom-color:#626A6F!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]::placeholder{
+  color:#80888D!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]:focus{
+  border-bottom-color:#DDE1E3!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter .newsletter-status{
+  color:#AAB1B5!important;
+}
