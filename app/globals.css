@@ -1149,3 +1149,37 @@ main button:focus-visible{
 .site-footer .footer-social-row a{
   color:#fff!important;
 }
+
+
+/* MORE stays editorial-neutral; brand green is reserved for stronger identity cues */
+.more-button{
+  background:transparent!important;
+  color:var(--ink)!important;
+  border-color:var(--ink)!important;
+}
+.more-button:hover{
+  background:var(--ink)!important;
+  color:var(--paper)!important;
+  border-color:var(--ink)!important;
+}
+
+/* Brand footer remains active in dark mode */
+:root[data-theme="dark"] .site-footer{
+  background:var(--brand)!important;
+  color:#F7F8F2!important;
+}
+:root[data-theme="dark"] .site-footer a,
+:root[data-theme="dark"] .site-footer button,
+:root[data-theme="dark"] .site-footer .footer-brand,
+:root[data-theme="dark"] .site-footer .footer-motto,
+:root[data-theme="dark"] .site-footer .footer-note,
+:root[data-theme="dark"] .site-footer .footer-bottom{
+  color:#fff!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]{
+  color:#fff!important;
+  border-bottom-color:rgba(255,255,255,.72)!important;
+}
+:root[data-theme="dark"] .site-footer .footer-newsletter input[type="email"]::placeholder{
+  color:rgba(255,255,255,.64)!important;
+}
