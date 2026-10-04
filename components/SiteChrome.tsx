@@ -86,8 +86,11 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
             <span>{t.theme}</span><b>{dark?t.dark:t.light}</b>
           </button>
           <div className="social" aria-label="Social links">
-            <a className="social-icon" href="https://x.com" aria-label="X">
+            <a className="social-icon" href="https://x.com" target="_blank" rel="noreferrer" aria-label="X">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+            </a>
+            <a className="social-icon" href="https://www.patreon.com" target="_blank" rel="noreferrer" aria-label="Patreon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"/></svg>
             </a>
           </div>
         </div>
@@ -119,7 +122,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
           </a>
           <a href="https://www.patreon.com" target="_blank" rel="noreferrer" aria-label="Patreon">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.62 4.08a6.04 6.04 0 1 1 0 12.08 6.04 6.04 0 0 1 0-12.08ZM3 4.08h3.18V20H3V4.08Z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"/></svg>
           </a>
         </div>
 
