@@ -57,7 +57,7 @@ export function SiteChrome({children}:{children:React.ReactNode}) {
 
   return <>
     <header className={`topbar ${solid?'solid':''} ${visible?'show':'hide'} ${menuMounted?'menu-active':''}`}>
-      <button className="logo" aria-label="Go back" onClick={()=>history.length>1?history.back():(location.href='/')}><BrandMark className="brand-mark" /></button>
+      <button className="logo" aria-label="Go back" onClick={()=>history.length>1?history.back():(location.href='/')}><BrandMark className="brand-mark" /><span className="header-brand-name"><BrandName /></span></button>
       <div className="top-actions">
         <button className="search-button" onClick={()=>setSearch(v=>!v)}>{t.search}</button>
         <Link className="desktop-only top-link" href="/subscribe">{t.subscribe}</Link>
