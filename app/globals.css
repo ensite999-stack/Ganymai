@@ -2038,3 +2038,18 @@ main button:focus-visible{
     margin-top:48px;
   }
 }
+
+
+/* Keep the submissions address inside narrow mobile viewports */
+.submission-email>a{
+  max-width:100%;
+  font-size:clamp(22px,5.8vw,40px)!important;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+@media(max-width:480px){
+  .submission-email>a{
+    font-size:clamp(20px,6.2vw,27px)!important;
+    letter-spacing:-.015em;
+  }
+}
