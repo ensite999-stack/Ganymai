@@ -90,7 +90,7 @@ function textFromHtml(html:string){
   return doc.body.textContent||''
 }
 
-export function StudioEditor(){
+export function StudioEditor({memberName,role,userId,initialArticleId}:{memberName:string;role:'editor'|'admin';userId:string;initialArticleId?:string|null}){
   const initial=emptyDraft()
   const [title,setTitle]=useState(initial.title)
   const [dek,setDek]=useState(initial.dek)
@@ -109,7 +109,8 @@ export function StudioEditor(){
   const [articleId,setArticleId]=useState<string|null>(null)
   const [articleSlug,setArticleSlug]=useState<string|null>(null)
   const [articleStatus,setArticleStatus]=useState<'draft'|'published'|'archived'>('draft')
-  const [notice,setNotice]=useState('Draft autosaves locally.')
+  const [notice,setNotice]=useState('Draft syncs to your member workspace.')
+  const [workspaceReady,setWorkspaceReady]=useState(false)
   const [preview,setPreview]=useState(false)
   const [color,setColor]=useState('#702691')
   const [activeBlock,setActiveBlock]=useState<string|null>(null)
@@ -119,30 +120,96 @@ export function StudioEditor(){
   const editors=useRef<Record<string,HTMLDivElement|null>>({})
   const savedSelection=useRef<SavedSelection|null>(null)
 
-  useEffect(()=>{
-    const d=localStorage.getItem('ganymai-draft')
-    if(!d) return
+  async function loadWorkspace(){
+    const supabase=createSupabaseBrowserClient()
     try{
-      const x=JSON.parse(d)
-      setTitle(x.title||'')
-      setDek(x.dek||'')
-      setAuthor(x.author||'')
-      setAuthorBio(x.authorBio||'')
-      setEditor(x.editor||'')
-      setCoverCaption(x.coverCaption||'')
-      setCategory(x.category||'')
-      setArticleLabel(x.label||'Essay')
-      setLabelIcon(['bookmark','book','document','eye','leaf'].includes(x.icon)?x.icon:'bookmark')
-      setTags(x.tags||'')
-      setCover(x.cover||'')
-      setDate(x.date||initial.date)
-      setCommentsEnabled(!!x.commentsEnabled)
-      setBlocks(normalizeBlocks(x.blocks))
-      setArticleId(x.articleId||null)
-      setArticleSlug(x.articleSlug||null)
-      setArticleStatus(x.articleStatus||'draft')
-    }catch{}
-  },[])
+      if(supabase){
+        const {data}=await supabase.from('editor_drafts').select('content').eq('user_id',userId).maybeSingle()
+        if(data?.content&&typeof data.content==='object'&&Object.keys(data.content).length){
+          loadDraft({...data.content,blocks:normalizeBlocks(data.content.blocks)})
+          setNotice('Your account workspace is loaded.')
+          return
+        }
+      }
+      const backup=localStorage.getItem(`ganymai-draft-${userId}`)
+      if(backup){
+        const parsed=JSON.parse(backup)
+        loadDraft({...parsed,blocks:normalizeBlocks(parsed.blocks)})
+        setNotice('Loaded the local backup for this account.')
+      }
+    }catch{
+      setNotice('Your workspace could not be loaded. A new draft is ready.')
+    }finally{
+      setWorkspaceReady(true)
+    }
+  }
+
+  async function loadArticleFromServer(id:string){
+    const supabase=createSupabaseBrowserClient()
+    if(!supabase){setWorkspaceReady(true);setNotice('Editorial services are unavailable.');return}
+    try{
+      const {data:article,error}=await supabase.from('articles')
+        .select('id,slug,title,dek,author_name,author_bio,editor_name,cover_caption,category_id,label_text,label_icon,tags,cover_url,published_on,status,comments_enabled')
+        .eq('id',id)
+        .maybeSingle()
+      if(error||!article) throw error||new Error('Article not found')
+
+      const [{data:rawBlocks},{data:categoryRow}]=await Promise.all([
+        supabase.from('article_blocks').select('id,position,block_type,content').eq('article_id',id).order('position',{ascending:true}),
+        article.category_id
+          ?supabase.from('categories').select('name').eq('id',article.category_id).maybeSingle()
+          :Promise.resolve({data:null})
+      ])
+
+      const mapped=(rawBlocks||[]).map((raw:any)=>raw.block_type==='image'
+        ?{
+          id:raw.id||uid(),
+          type:'image',
+          url:raw.content?.url||'',
+          caption:raw.content?.caption||'',
+          author:raw.content?.original_author||'',
+          source:raw.content?.source||'',
+          fingerprint:raw.content?.fingerprint||''
+        }
+        :{
+          id:raw.id||uid(),
+          type:'paragraph',
+          html:raw.content?.html||escapeHtml(raw.content?.text||''),
+          text:raw.content?.text||''
+        })
+
+      loadDraft({
+        title:article.title||'',
+        dek:article.dek||'',
+        author:article.author_name||'',
+        authorBio:article.author_bio||'',
+        editor:article.editor_name||'',
+        coverCaption:article.cover_caption||'',
+        category:categoryRow?.name||'',
+        label:article.label_text||'Essay',
+        icon:article.label_icon||'bookmark',
+        tags:Array.isArray(article.tags)?article.tags.join(', '):'',
+        cover:article.cover_url||'',
+        date:article.published_on||new Date().toISOString().slice(0,10),
+        commentsEnabled:!!article.comments_enabled,
+        blocks:mapped.length?mapped:fiveParagraphs(),
+        articleId:article.id,
+        articleSlug:article.slug,
+        articleStatus:article.status||'draft'
+      })
+      setNotice('Article loaded from your editorial workspace.')
+    }catch(e:any){
+      setNotice(e?.message||'Article could not be loaded.')
+    }finally{
+      setWorkspaceReady(true)
+    }
+  }
+
+  useEffect(()=>{
+    setWorkspaceReady(false)
+    if(initialArticleId) loadArticleFromServer(initialArticleId)
+    else loadWorkspace()
+  },[initialArticleId,userId])
 
   useEffect(()=>{
     const capture=()=>{
@@ -163,9 +230,21 @@ export function StudioEditor(){
 
   const snapshot=():Draft=>({title,dek,author,authorBio,editor,coverCaption,category,label:articleLabel,icon:labelIcon,tags,cover,date,commentsEnabled,blocks,articleId,articleSlug,articleStatus})
   useEffect(()=>{
-    const t=setTimeout(()=>localStorage.setItem('ganymai-draft',JSON.stringify(snapshot())),250)
+    if(!workspaceReady) return
+    const t=setTimeout(async()=>{
+      const snap=snapshot()
+      localStorage.setItem(`ganymai-draft-${userId}`,JSON.stringify(snap))
+      const supabase=createSupabaseBrowserClient()
+      if(supabase){
+        await supabase.from('editor_drafts').upsert({
+          user_id:userId,
+          content:snap,
+          updated_at:new Date().toISOString()
+        })
+      }
+    },700)
     return()=>clearTimeout(t)
-  },[title,dek,author,authorBio,editor,coverCaption,category,articleLabel,labelIcon,tags,cover,date,commentsEnabled,blocks,articleId,articleSlug,articleStatus])
+  },[workspaceReady,userId,title,dek,author,authorBio,editor,coverCaption,category,articleLabel,labelIcon,tags,cover,date,commentsEnabled,blocks,articleId,articleSlug,articleStatus])
 
   function loadDraft(d:Draft){
     setTitle(d.title||'')
@@ -290,7 +369,7 @@ export function StudioEditor(){
         if(!error){
           const {data}=supabase.storage.from('media').getPublicUrl(path)
           patch(bid,{url:data.publicUrl,caption:file.name,source:`${BRAND_NAME} upload`,fingerprint:digest})
-          setNotice('Image uploaded to Supabase Storage.')
+          setNotice('Image uploaded to media storage.')
           return
         }
         setNotice(`Upload failed: ${error.message}. Showing a local preview instead.`)
@@ -298,7 +377,7 @@ export function StudioEditor(){
     }
     const u=URL.createObjectURL(file)
     patch(bid,{url:u,caption:file.name,source:'Local preview',fingerprint:digest})
-    setNotice('Local preview inserted. Sign in and connect Supabase Storage for persistent uploads.')
+    setNotice('Local preview inserted. Persistent media storage is unavailable.')
   }
 
   async function resolveCategory(supabase:any){
@@ -326,14 +405,14 @@ export function StudioEditor(){
 
   async function publish(){
     const supabase=createSupabaseBrowserClient()
-    if(!supabase){setNotice('Publishing needs Supabase URL and publishable key. Preview and local drafting still work.');return}
+    if(!supabase){setNotice('Publishing services are unavailable. Preview and account drafting still work.');return}
     const {data:{user},error:userError}=await supabase.auth.getUser()
-    if(userError||!user){setNotice('Sign in before publishing.');return}
+    if(userError||!user){setNotice('Your Studio session has expired.');return}
     if(!title.trim()||!author.trim()){setNotice('Title and author are required.');return}
     setNotice(articleId?'Updating published article…':'Publishing…')
     try{
       const categoryId=await resolveCategory(supabase)
-      const articleValues={title:title.trim(),dek:dek.trim()||null,author_name:author.trim(),author_bio:authorBio.trim()||null,editor_name:editor.trim()||null,cover_caption:coverCaption.trim()||null,category_id:categoryId,label_text:articleLabel.trim()||null,label_icon:labelIcon,cover_url:cover.trim()||null,status:'published' as const,published_on:date,updated_at:new Date().toISOString(),tags:tags.split(',').map(x=>x.trim()).filter(Boolean),comments_enabled:commentsEnabled,created_by:user.id}
+      const articleValues={title:title.trim(),dek:dek.trim()||null,author_name:author.trim(),author_bio:authorBio.trim()||null,editor_name:editor.trim()||null,cover_caption:coverCaption.trim()||null,category_id:categoryId,label_text:articleLabel.trim()||null,label_icon:labelIcon,cover_url:cover.trim()||null,status:'published' as const,published_on:date,updated_at:new Date().toISOString(),tags:tags.split(',').map(x=>x.trim()).filter(Boolean),comments_enabled:commentsEnabled}
       let idValue=articleId
       let slugValue=articleSlug
       if(idValue){
@@ -344,7 +423,7 @@ export function StudioEditor(){
       if(!idValue){
         const slugBase=title.toLowerCase().normalize('NFKD').replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-').slice(0,70)||'essay'
         slugValue=`${slugBase}-${Date.now().toString().slice(-6)}`
-        const {data:article,error}=await supabase.from('articles').insert({...articleValues,slug:slugValue}).select('id,slug').single()
+        const {data:article,error}=await supabase.from('articles').insert({...articleValues,slug:slugValue,created_by:user.id}).select('id,slug').single()
         if(error||!article) throw error||new Error('Could not create article')
         idValue=article.id
         slugValue=article.slug
@@ -366,25 +445,35 @@ export function StudioEditor(){
     }
   }
 
-  function saveDraft(){
+  async function saveDraft(){
     blocks.filter(b=>b.type==='paragraph').forEach(b=>syncEditor(b.id))
-    localStorage.setItem('ganymai-draft',JSON.stringify(snapshot()))
-    setNotice('Draft saved locally.')
+    const snap=snapshot()
+    localStorage.setItem(`ganymai-draft-${userId}`,JSON.stringify(snap))
+    const supabase=createSupabaseBrowserClient()
+    if(!supabase){setNotice('Saved as an account-scoped local backup.');return}
+    const {error}=await supabase.from('editor_drafts').upsert({
+      user_id:userId,
+      content:snap,
+      updated_at:new Date().toISOString()
+    })
+    setNotice(error?'Workspace save failed. Local backup kept.':'Draft saved to your member workspace.')
   }
   async function deleteArticle(){
-    localStorage.setItem('ganymai-trash',JSON.stringify(snapshot()))
+    localStorage.setItem(`ganymai-trash-${userId}`,JSON.stringify(snapshot()))
     if(articleId){
       const supabase=createSupabaseBrowserClient()
       if(supabase){
         const {error}=await supabase.from('articles').update({status:'archived',updated_at:new Date().toISOString()}).eq('id',articleId)
         if(!error){setArticleStatus('archived');setNotice('Article removed from publication and moved to archive. Use Restore to republish it.');return}
-        setNotice(`Archive failed: ${error.message}. A local recovery copy was still saved.`)
+        setNotice(`Archive failed: ${error.message}. An account-scoped recovery copy was saved.`)
         retur
       }
     }
     resetDraft()
-    localStorage.removeItem('ganymai-draft')
-    setNotice('Draft deleted locally. Use Restore to bring it back.')
+    localStorage.removeItem(`ganymai-draft-${userId}`)
+    const supabase=createSupabaseBrowserClient()
+    if(supabase) await supabase.from('editor_drafts').delete().eq('user_id',userId)
+    setNotice('Draft removed from your workspace. Use Restore to bring back the local recovery copy.')
   }
   async function restoreArticle(){
     if(articleId&&articleStatus==='archived'){
@@ -396,7 +485,7 @@ export function StudioEditor(){
         return
       }
     }
-    const trash=localStorage.getItem('ganymai-trash')
+    const trash=localStorage.getItem(`ganymai-trash-${userId}`)
     if(!trash){setNotice('There is no deleted draft to restore.');return}
     try{
       const parsed=JSON.parse(trash)
@@ -405,13 +494,23 @@ export function StudioEditor(){
     }catch{setNotice('The recovery copy could not be read.')}
   }
 
+  async function signOut(){
+    const supabase=createSupabaseBrowserClient()
+    await supabase?.auth.signOut()
+    window.location.assign('/studio/sign-in')
+  }
+
   return <div className="studio-shell">
     <aside>
       <div className="studio-logo">Γ</div>
       <b><BrandName /> Studio</b>
       <p>Article editor</p>
+      <div className="studio-member-card"><span>{memberName}</span><small>{role}</small></div>
       <div className="studio-status"><span>Status</span><strong>{articleStatus}</strong></div>
+      <a href="/studio/articles">{role==='admin'?'All articles':'My articles'}</a>
       <a href="/studio/comments">Comment management</a>
+      {role==='admin'&&<a href="/studio/members">Members</a>}
+      <button className="studio-signout" onClick={signOut}>Sign out</button>
       <a href="/">← Public site</a>
     </aside>
 

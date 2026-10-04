@@ -3,7 +3,7 @@ import { BrandName } from '@/components/BrandName'
 
 export const metadata:Metadata={
   title:'Terms of Use',
-  description:'Terms governing access to and use of Ganymai, its editorial content, accounts and Studio tools.',
+  description:'Terms governing access to and use of Ganymai, its editorial content and internal Studio tools.',
   alternates:{canonical:'/terms'}
 }
 
@@ -11,9 +11,9 @@ export default function Page(){
   return <section className="text-page legal-page">
     <div className="eyebrow">TERMS</div>
     <h1>Terms of use.</h1>
-    <p className="legal-updated">Last updated: 3 October 2026</p>
+    <p className="legal-updated">Last updated: 4 October 2026</p>
 
-    <p>These terms govern access to and use of <BrandName />, including its essays, archive, account features and editorial tools. By using the site, you agree to follow these terms and applicable law.</p>
+    <p>These terms govern access to and use of <BrandName />, including its essays, archive, comment features and internal editorial tools. By using the site, you agree to follow these terms and applicable law.</p>
 
     <h2>Editorial content</h2>
     <p>Essays and other editorial material are provided for reading, discussion and general informational purposes. They may express the views of individual authors and do not necessarily represent a single institutional position of <BrandName />.</p>
@@ -24,8 +24,8 @@ export default function Page(){
     <h2>Third-party material and links</h2>
     <p>Articles may include third-party images, quotations, references or links. Rights in third-party material remain with their respective owners. A link does not imply endorsement, and <BrandName /> is not responsible for the availability, security or policies of external sites.</p>
 
-    <h2>Accounts and Studio access</h2>
-    <p>If you are given access to an account or <BrandName /> Studio, you are responsible for keeping your credentials secure and for activity performed through your account. Editorial tools may only be used by authorised users and for legitimate site administration or publishing.</p>
+    <h2>Internal Studio access</h2>
+    <p><BrandName /> Studio is reserved for authorised members. Each member account has its own editorial workspace and access level. Members are responsible for keeping credentials secure and for activity performed through their account. Studio access may be changed or withdrawn by an administrator.</p>
 
     <h2>Acceptable use</h2>
     <p>You must not attempt to interfere with the site, bypass security controls, gain unauthorised access, introduce malicious code, misuse automated access, impersonate another person, or use the service in a way that infringes the rights of others.</p>

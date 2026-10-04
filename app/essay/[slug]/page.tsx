@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArticleShare } from '@/components/ArticleShare'
-import { SaveArticleButton } from '@/components/SaveArticleButton'
 import { CommentsSection } from '@/components/CommentsSection'
 import { BRAND_NAME } from '@/lib/brand'
 import { createPublicContentClient, sanitizePublishedHtml, type PublicBlock } from '@/lib/publicContent'
@@ -152,7 +151,6 @@ export default async function Essay({params}:{params:Promise<{slug:string}>}){
           {topicNames.map(topic=><span key={topic}>{topic}</span>)}
         </div>}
 
-        <SaveArticleButton articleId={article.id}/>
         <ArticleShare title={article.title} url={url}/>
       </aside>
 
