@@ -49,7 +49,7 @@ export function AuthForm(){
   return <form className="account-form" onSubmit={submit}>
     <label>Display name
       <input type="text" autoComplete="nickname" value={name} onChange={e=>setName(e.target.value)} maxLength={50} required/>
-      <small>Shown with your comments.</small>
+      <small>Used on your account profile.</small>
     </label>
     <label>Email
       <input type="email" autoComplete="email" inputMode="email" value={email} onChange={e=>setEmail(e.target.value)} required/>

@@ -181,6 +181,6 @@ export default async function Essay({params}:{params:Promise<{slug:string}>}){
       </div>
     </div>
 
-    {article.comments_enabled&&<CommentsSection articleId={article.id} slug={article.slug}/>}
+    {article.comments_enabled&&<CommentsSection articleId={article.id}/>} 
   </article>
 }

@@ -411,6 +411,7 @@ export function StudioEditor(){
       <b><BrandName /> Studio</b>
       <p>Article editor</p>
       <div className="studio-status"><span>Status</span><strong>{articleStatus}</strong></div>
+      <a href="/studio/comments">Comment moderation</a>
       <a href="/">← Public site</a>
     </aside>
 

@@ -49,7 +49,7 @@ export function ProfileClient(){
 
   return <div className="profile-grid">
     <form className="profile-form" onSubmit={save}>
-      <label>Display name<input value={name} onChange={e=>setName(e.target.value)} maxLength={50}/><small>Shown with your comments.</small></label>
+      <label>Display name<input value={name} onChange={e=>setName(e.target.value)} maxLength={50}/><small>Used on your account profile.</small></label>
       <label>Email<input value={email} readOnly/></label>
       <label>Short bio<textarea value={bio} onChange={e=>setBio(e.target.value)} maxLength={300}/></label>
       <button type="submit">Save profile</button>
@@ -57,7 +57,7 @@ export function ProfileClient(){
     </form>
     <aside className="profile-links">
       <Link href="/library"><span>My Library</span><b>Saved essays →</b></Link>
-      <Link href="/community-guidelines"><span>Comments</span><b>Community guidelines →</b></Link>
+      <Link href="/community-guidelines"><span>Comments</span><b>Anonymous comment guidelines →</b></Link>
       <Link href="/donate"><span>Support</span><b>Support Ganymai →</b></Link>
       <button onClick={signOut}>Sign out</button>
     </aside>

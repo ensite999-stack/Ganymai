@@ -1,17 +1,20 @@
 import type {Metadata} from 'next'
+
 export const metadata:Metadata={title:'Community guidelines'}
+
 export default function CommunityGuidelines(){
   return <article className="text-page legal-page">
     <div className="eyebrow">COMMUNITY</div>
     <h1>Community guidelines.</h1>
-    <p>Ganymai welcomes considered, civil responses to selected essays. Comments are a place to add thought, experience and disagreement without turning the page into a shouting match.</p>
-    <h2>One comment per essay</h2>
-    <p>You can make one main comment on each essay that has comments enabled. Make it count. You may edit your comment for one hour after posting.</p>
-    <h2>Be rigorous, not hostile</h2>
-    <p>Disagreement is welcome. Hate speech, personal attacks, harassment, defamation, intimidation, graphic abuse, advertising, impersonation, spam and off-topic promotion are not.</p>
-    <h2>Likes and replies</h2>
-    <p>Signed-in readers can upvote comments. Ganymai editors and authors may reply. Once an editor or author has replied, the original comment can no longer be deleted.</p>
+    <p>Ganymai comments are anonymous. You do not need an account, and the comment form does not ask for your name or email. Every comment is reviewed before it becomes public.</p>
+
+    <h2>What can be published</h2>
+    <p>Disagreement, criticism, unpopular opinions and strong political or social arguments are welcome when they are expressed without crossing the safety boundaries below. A comment is not rejected merely because it criticises a government, institution, ideology or social order.</p>
+
+    <h2>What we withhold</h2>
+    <p>We may withhold material involving credible threats or incitement to violence, sexual exploitation or explicit pornography, gambling promotion, advertising or spam, terrorist advocacy or recruitment, instructions that materially facilitate crime, severe harassment or hate, and other clearly unlawful material or serious violations of public safety.</p>
+
     <h2>Moderation</h2>
-    <p>Ganymai may moderate or remove comments that breach these guidelines. The aim is not to eliminate disagreement, but to protect a serious and useful discussion space.</p>
+    <p>Submission does not guarantee publication. Editors review comments for these boundaries rather than for agreement with Ganymai. Approved comments appear as Anonymous. Editors may reply publicly where useful.</p>
   </article>
 }
