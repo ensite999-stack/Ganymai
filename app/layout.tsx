@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Manrope } from 'next/font/google'
+import { Manrope, Parisienne } from 'next/font/google'
 import './globals.css'
 import { SiteChrome } from '@/components/SiteChrome'
 import { BrandTitleGuard } from '@/components/BrandTitleGuard'
@@ -7,6 +7,7 @@ import { BRAND_NAME } from '@/lib/brand'
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_URL } from '@/lib/site'
 
 const manrope = Manrope({ subsets:['latin'], weight:['700','800'], variable:'--font-brand' })
+const parisienne = Parisienne({ subsets:['latin'], weight:'400', variable:'--font-script' })
 
 export const metadata: Metadata = {
   metadataBase:new URL(SITE_URL),
@@ -48,7 +49,7 @@ const websiteJsonLd={
 
 export default function RootLayout({children}:{children:React.ReactNode}) {
   return <html lang="en">
-    <body className={manrope.variable}>
+    <body className={`${manrope.variable} ${parisienne.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(websiteJsonLd)}}/>
       <BrandTitleGuard/>
       <SiteChrome>{children}</SiteChrome>

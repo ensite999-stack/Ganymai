@@ -949,3 +949,35 @@ body>.site-footer{
   .header-brand-name{font-size:16px}
   .brand-mark{width:29px;height:22px}
 }
+
+
+/* Ganymai signature wordmark */
+.header-brand-name{
+  font-family:var(--font-script),cursive!important;
+  font-size:25px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  letter-spacing:0!important;
+  transform:translateY(1px);
+}
+.header-brand-name .brand-name{
+  font-family:inherit!important;
+  font-weight:inherit!important;
+  letter-spacing:inherit!important;
+}
+.footer-brand{
+  font-family:var(--font-script),cursive!important;
+  font-size:52px!important;
+  font-weight:400!important;
+  line-height:.95!important;
+  letter-spacing:0!important;
+}
+.footer-brand .brand-name{
+  font-family:inherit!important;
+  font-weight:inherit!important;
+  letter-spacing:inherit!important;
+}
+@media(max-width:640px){
+  .header-brand-name{font-size:22px!important}
+  .footer-brand{font-size:46px!important}
+}
