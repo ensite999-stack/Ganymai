@@ -3226,3 +3226,249 @@ main button:focus-visible{
 :root[data-theme="dark"] .site-footer .footer-bottom{
   color:#D5D8D5!important;
 }
+
+
+/* Editorial motion and micro-interactions */
+@keyframes ganymaiHeroIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes ganymaiReveal{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .hero>.eyebrow,
+  .hero>h1,
+  .hero>p{
+    opacity:0;
+    animation:ganymaiHeroIn .72s cubic-bezier(.22,.76,.22,1) forwards;
+  }
+  .hero>.eyebrow{animation-delay:.06s}
+  .hero>h1{animation-delay:.14s}
+  .hero>p{animation-delay:.24s}
+
+  @supports(animation-timeline:view()){
+    .home-manifesto,
+    .home-article-card,
+    .text-page>h1,
+    .text-page>h2,
+    .text-page>p,
+    .text-page>ul,
+    .join-page>.join-intro,
+    .join-page>.join-belief,
+    .join-page>.join-form-head,
+    .join-page>.join-form,
+    .aeon-essay-layout,
+    .comments-section{
+      animation:ganymaiReveal linear both;
+      animation-timeline:view();
+      animation-range:entry 4% cover 24%;
+    }
+  }
+}
+
+/* Header feedback */
+.logo,
+.search-button,
+.top-link,
+.menu-button{
+  transition:
+    transform .22s cubic-bezier(.22,.76,.22,1),
+    opacity .2s ease!important;
+}
+@media(hover:hover) and (pointer:fine){
+  .topbar .logo:hover{
+    transform:translateX(3px);
+  }
+  .topbar .search-button:hover,
+  .topbar .top-link:hover{
+    transform:translateY(-1px);
+    opacity:.78!important;
+  }
+  .topbar .menu-button:hover{
+    transform:translateX(2px);
+  }
+}
+.logo:active,
+.search-button:active,
+.top-link:active,
+.menu-button:active{
+  transform:scale(.97);
+}
+
+/* Menu feedback without underlines */
+@media(hover:hover) and (pointer:fine){
+  .menu-layer.open .menu-links a:hover{
+    transform:translateX(7px) scale(1)!important;
+    color:var(--brand-text)!important;
+  }
+  .setting-button:hover{
+    border-color:var(--ink);
+    transform:translateY(-1px);
+  }
+}
+.setting-button{
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.setting-button:active{transform:scale(.985)}
+
+/* Home article cards */
+.home-article-card{
+  transition:transform .42s cubic-bezier(.22,.76,.22,1);
+}
+.home-card-cover{
+  overflow:hidden;
+}
+.home-card-cover img{
+  transition:transform .75s cubic-bezier(.2,.72,.18,1),filter .4s ease;
+}
+.home-card-copy h2,
+.home-card-dek,
+.home-card-author,
+.home-card-copy .article-label{
+  transition:
+    transform .38s cubic-bezier(.22,.76,.22,1),
+    color .22s ease,
+    opacity .22s ease;
+}
+@media(hover:hover) and (pointer:fine){
+  .home-article-card:hover{
+    transform:translateY(-3px);
+  }
+  .home-article-card:hover .home-card-cover img{
+    transform:scale(1.028);
+  }
+  .home-article-card:hover .home-card-copy h2{
+    transform:translateX(6px);
+  }
+  .home-article-card:hover .home-card-copy .article-label{
+    transform:translateX(3px);
+  }
+  .home-article-card:hover .home-card-author{
+    color:var(--brand-text);
+  }
+}
+
+/* Editorial inline links: short line grows on hover */
+.manifesto a,
+.about-join a,
+.text-page>p a,
+.legal-page p a,
+.comment-policy-note a{
+  border-bottom:0!important;
+  background-image:linear-gradient(currentColor,currentColor);
+  background-repeat:no-repeat;
+  background-position:0 100%;
+  background-size:100% 1px;
+  transition:
+    background-size .28s cubic-bezier(.22,.76,.22,1),
+    color .2s ease,
+    opacity .2s ease;
+}
+@media(hover:hover) and (pointer:fine){
+  .manifesto a:hover,
+  .about-join a:hover,
+  .text-page>p a:hover,
+  .legal-page p a:hover,
+  .comment-policy-note a:hover{
+    background-size:38% 1px;
+    color:var(--brand-text);
+  }
+}
+
+/* Buttons should feel physical, not animated for animation's sake */
+.more-button,
+.join-submit button,
+.comment-submit-row button,
+.footer-newsletter button{
+  transition:
+    transform .18s ease,
+    background-color .24s ease,
+    color .24s ease,
+    border-color .24s ease!important;
+}
+.more-button:active,
+.join-submit button:active:not(:disabled),
+.comment-submit-row button:active:not(:disabled),
+.footer-newsletter button:active{
+  transform:translateY(1px) scale(.985);
+}
+
+/* Footer hover: small lateral motion against the black field */
+.site-footer .footer-nav a,
+.site-footer .footer-social-row a,
+.site-footer .footer-newsletter button{
+  transition:
+    transform .22s cubic-bezier(.22,.76,.22,1),
+    color .2s ease,
+    opacity .2s ease!important;
+}
+@media(hover:hover) and (pointer:fine){
+  .site-footer .footer-nav a:hover{
+    transform:translateX(4px);
+    color:#F5F6F3!important;
+  }
+  .site-footer .footer-social-row a:hover{
+    transform:translateY(-3px);
+    color:var(--brand)!important;
+  }
+  .site-footer .footer-newsletter button:hover{
+    transform:translateX(3px);
+    color:var(--brand)!important;
+  }
+}
+
+/* A small breathing accent on section headings */
+.section-rule{
+  position:relative;
+  overflow:hidden;
+}
+.section-rule::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:58px;
+  height:2px;
+  background:var(--brand);
+  transform-origin:left center;
+  transition:width .45s cubic-bezier(.22,.76,.22,1);
+}
+@media(hover:hover) and (pointer:fine){
+  .home-articles:hover .section-rule::after{
+    width:112px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero>.eyebrow,
+  .hero>h1,
+  .hero>p,
+  .home-manifesto,
+  .home-article-card,
+  .text-page>h1,
+  .text-page>h2,
+  .text-page>p,
+  .text-page>ul,
+  .join-page>.join-intro,
+  .join-page>.join-belief,
+  .join-page>.join-form-head,
+  .join-page>.join-form,
+  .aeon-essay-layout,
+  .comments-section{
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+  .home-card-cover img,
+  .home-card-copy h2,
+  .home-card-copy .article-label,
+  .site-footer a,
+  .topbar button,
+  .topbar a{
+    transition:none!important;
+    transform:none!important;
+  }
+}
